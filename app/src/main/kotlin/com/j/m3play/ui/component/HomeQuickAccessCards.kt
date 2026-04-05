@@ -1,10 +1,11 @@
 /*
  * ♪ M3Play Signature Component
+ * File: HomeQuickAccessCards.kt
  *
  * Crafted for immersive music experience
  * Designed & maintained by JAY01-CYBER
  *
- * Signature: M3PLAY::SIGNATURE::UI::V1
+ * Signature: M3PLAY::SIGNATURE::QUICK_ACCESS::V1
  */
 
 package com.j.m3play.ui.component

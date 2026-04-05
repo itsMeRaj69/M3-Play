@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ╭────────────────────────────────────────────╮
  * │             M3Play UI System               │
  * │--------------------------------------------│
@@ -8,7 +8,7 @@
  * ╰────────────────────────────────────────────╯
  */
 
-﻿package com.j.m3play.ui.screens.settings
+package com.j.m3play.ui.screens.settings
 
 import android.Manifest
 import android.content.pm.PackageManager

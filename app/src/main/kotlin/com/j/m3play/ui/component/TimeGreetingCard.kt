@@ -1,10 +1,11 @@
 /*
  * ♪ M3Play Signature Component
+ * File: TimeGreetingCard.kt
  *
  * Crafted for immersive music experience
  * Designed & maintained by JAY01-CYBER
  *
- * Signature: M3PLAY::SIGNATURE::UI::V1
+ * Signature: M3PLAY::SIGNATURE::TIME_GREETING::V1
  */
 
 package com.j.m3play.ui.component
