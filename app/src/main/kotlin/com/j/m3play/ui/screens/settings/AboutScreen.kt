@@ -217,6 +217,88 @@ private fun DeveloperCard() {
     }
 }
 
+@Composable
+private fun CreditLine(
+    title: String,
+    subtitle: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = subtitle,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.secondary,
+        )
+    }
+}
+
+@Composable
+private fun CreditsCard() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(24.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+        ) {
+            Text(
+                text = "Open-source acknowledgements ❤️",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "M3Play is based on ArchiveTune.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.secondary,
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            Spacer(modifier = Modifier.height(16.dp))
+
+            CreditLine(
+                title = "ArchiveTune",
+                subtitle = "Base project and foundation for this app.",
+            )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            CreditLine(
+                title = "Lyrics & metadata services",
+                subtitle = "Used for lyrics, track information, and related music data.",
+            )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            CreditLine(
+                title = "Open-source community",
+                subtitle = "Special thanks to all upstream contributors and maintainers.",
+            )
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(
@@ -327,6 +409,17 @@ fun AboutScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             DeveloperCard()
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            SectionHeader(
+                title = "Credits",
+                modifier = Modifier.padding(horizontal = 16.dp),
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            CreditsCard()
 
             Spacer(modifier = Modifier.height(24.dp))
         }
