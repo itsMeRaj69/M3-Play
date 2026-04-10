@@ -1176,7 +1176,7 @@ class MusicService :
         // Launch in scope to avoid blocking
         scope.launch {
             // Don't start if Discord RPC is disabled in settings
-            if (!dataStore.get(EnableDiscordRPCKey, true)) {
+            if (!dataStore.get(EnableDiscordRPCKey, false)) {
                 if (DiscordPresenceManager.isRunning()) {
                     Timber.tag("MusicService").d("Discord RPC disabled → stopping presence manager")
                     try { DiscordPresenceManager.stop() } catch (_: Exception) {}
