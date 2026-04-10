@@ -454,63 +454,7 @@ class MainActivity : ComponentActivity() {
                     // bottom sheet to not appear and overlay interactions to be blocked).
                     val bottomSheetPageState = remember { com.j.m3play.ui.component.BottomSheetPageState() }
                     val menuState = remember { com.j.m3play.ui.component.MenuState() }
-                    val uriHandler = LocalUriHandler.current
-                    val releaseNotesState = remember { mutableStateOf<String?>(null) }
-                    val updateSheetContent: @Composable ColumnScope.() -> Unit = { // receiver: ColumnScope
-                        Text(
-                            text = stringResource(R.string.new_update_available),
-                            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                            modifier = Modifier.padding(top = 16.dp)
-                        )
-
-                        Spacer(Modifier.height(8.dp))
-
-                        androidx.compose.material3.OutlinedButton(
-                            onClick = {},
-                            shape = CircleShape,
-                            contentPadding = androidx.compose.foundation.layout.PaddingValues(
-                                horizontal = 5.dp,
-                                vertical = 5.dp
-                            )
-                        ) {
-                            Text(text = latestVersionName, style = MaterialTheme.typography.labelLarge)
-                        }
-
-                        Spacer(Modifier.height(12.dp))
-
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f, fill = false)
-                            .verticalScroll(rememberScrollState())
-                        ) {
-                            val notes = releaseNotesState.value
-                            if (notes != null && notes.isNotBlank()) {
-                                Markdown(
-                                    content = notes,
-                                    modifier = Modifier
-                                        .fillMaxWidth().padding(end = 8.dp)
-                                )
-                            } else {
-                                Text(
-                                    text = stringResource(R.string.release_notes_unavailable),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                )
-                            }
-                        }
-
-                        Spacer(Modifier.height(12.dp))
-
-                        androidx.compose.material3.Button(
-                            onClick = {
-                                try {
-                                    uriHandler.openUri(Updater.getLatestDownloadUrl())
-                                } catch (_: Exception) {}
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                        ) {
-                            Text(text = stringResource(R.string.update_text))
-                        }
-                    }
+                    
 
                     // fetch release notes and show sheet when a new version is detected
                     LaunchedEffect(latestVersionName) {
