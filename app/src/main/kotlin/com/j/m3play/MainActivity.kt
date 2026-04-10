@@ -457,17 +457,7 @@ class MainActivity : ComponentActivity() {
                     
 
                     // fetch release notes and show sheet when a new version is detected
-                    LaunchedEffect(latestVersionName) {
-                        if (!Updater.isSameVersion(latestVersionName, BuildConfig.VERSION_NAME)) {
-                            Updater.getLatestReleaseNotes().onSuccess {
-                                releaseNotesState.value = it
-                            }.onFailure {
-                                releaseNotesState.value = null
-                            }
-
-                            bottomSheetPageState.show(updateSheetContent)
-                        }
-                    }
+                    
 
             val enableDynamicTheme by rememberPreference(DynamicThemeKey, defaultValue = true)
             val customThemeColorValue by rememberPreference(CustomThemeColorKey, defaultValue = "default")
