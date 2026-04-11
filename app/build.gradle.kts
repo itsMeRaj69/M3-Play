@@ -23,8 +23,8 @@ android {
         applicationId = "com.j.m3play"
         minSdk = 26
         targetSdk = 36
-        versionCode = 138
-        versionName = "3.0.5"
+        versionCode = 139
+        versionName = "3.0.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
