@@ -11,6 +11,7 @@
 package com.j.m3play.ui.player
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -125,6 +126,12 @@ import java.util.Locale
 import kotlin.math.abs
 import android.content.Context
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.rememberSpatialOffset
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.viewinterop.AndroidView
 
 object CanvasArtworkPlaybackCache {
@@ -259,7 +266,9 @@ object CanvasArtworkPlaybackCache {
 fun Thumbnail(
     sliderPositionProvider: () -> Long?,
     modifier: Modifier = Modifier,
-    isPlayerExpanded: Boolean = true, // Add parameter to control swipe based on player state
+    isPlayerExpanded: Boolean = true,
+    sharedTransitionScope: SharedTransitionScope? = null, // Added parameter
+    animatedVisibilityScope: AnimatedVisibilityScope? = null, // Added parameter
 ) {
     val playerConnection = LocalPlayerConnection.current ?: return
     val context = LocalContext.current
@@ -645,6 +654,7 @@ fun Thumbnail(
                                         val primaryCanvasUrl = canvasArtwork?.animated
                                         val fallbackCanvasUrl = canvasArtwork?.videoUrl
                                         
+                                        // Background blur layer
                                         AsyncImage(
                                             model = item.mediaMetadata.artworkUri?.toString(),
                                             contentDescription = null,
@@ -658,6 +668,18 @@ fun Thumbnail(
                                                 )
                                         )
 
+                                        // Main artwork - Apply Shared Element HERE
+                                        val sharedElementModifier = if (sharedTransitionScope != null && animatedVisibilityScope != null) {
+                                            with(sharedTransitionScope) {
+                                                Modifier.sharedElement(
+                                                    state = rememberSharedContentState(key = "player_artwork_${item.mediaId}"),
+                                                    animatedVisibilityScope = animatedVisibilityScope
+                                                )
+                                            }
+                                        } else {
+                                            Modifier
+                                        }
+
                                         AsyncImage(
                                             model = item.mediaMetadata.artworkUri?.toString(),
                                             contentDescription = null,
@@ -665,6 +687,7 @@ fun Thumbnail(
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .let { if (cropThumbnailToSquare) it.aspectRatio(1f) else it }
+                                                .then(sharedElementModifier) // Apply the modifier
                                         )
 
                                         if (shouldAnimateCanvas && (!primaryCanvasUrl.isNullOrBlank() || !fallbackCanvasUrl.isNullOrBlank())) {
@@ -712,6 +735,8 @@ fun Thumbnail(
     }
 }
 
+// ... (Rest of the file: CanvasArtworkPlayer, normalize functions, SnapLayoutInfoProvider) ...
+// (Keep the rest of the file exactly as it was, unchanged)
 @Composable
 private fun CanvasArtworkPlayer(
     primaryUrl: String?,
